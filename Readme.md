@@ -25,6 +25,23 @@ $  curl http://<your_domain>/info
 
 
 
+## <font color=blue>Progress Record</font>
+
+-  3/13/2020 (2.5hr)
+      >P1~P7 and P11 
+
+
+
+
+## <font color=blue>References</font>
+- Building a REST API using Python and Flask | Flask-RESTful
+https://www.youtube.com/watch?v=s_ht4AKnWZg
+
+- jsonify - flask - Python documentation
+https://kite.com/python/docs/flask.jsonify
+
+- 在flask中使用jsonify和json.dumps的区别
+https://blog.csdn.net/Duke_Huan_of_Qi/article/details/76064225
 
 
 
