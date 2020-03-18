@@ -10,14 +10,19 @@ Todo: P8, P9, P11
 from flask import Flask, jsonify, request
 import numpy as np
 
+#建立app
 app = Flask(__name__)
 
 number_of_requests = {}
 number_of_errors = {}
 
-
+#針對所需的route新增對應建立view function用來處理使用者的request
+'''
+POST參數(json): { "x": [1, 2, 3], "y": [4, 5, 6]}
+'''
 @app.route('/innerproduct', methods=['POST','GET'])
-def index():
+def innerproduct():
+    
     path = "innerproduct"
     if (request.method == 'POST'):
         #request log
@@ -27,7 +32,7 @@ def index():
         number_of_requests['innerproduct'] += 1
 
         some_json = request.get_json() #dict type
-        print(f"some_json={type(some_json)}")
+        #print(f"some_json={type(some_json)}")
 
         vector_a = some_json['x']
         vector_b = some_json['y']
@@ -46,11 +51,7 @@ def index():
             return jsonify({"error": {"type": "format error"} }), 200
 
     else:
-        return jsonify({"about": 'hello world'})
-
-@app.route('/multi/{"a":<int:num>}', methods=['GET'])
-def get_multiply10(num):
-    return jsonify({'result': num*10})
+        return jsonify({"about": 'InnerProduct API'})
 
 
 @app.route('/info/', methods=['GET'])
