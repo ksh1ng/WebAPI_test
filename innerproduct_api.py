@@ -2,48 +2,49 @@
 Title: Innerproduct API using flask
 Name: Kshing
 Date: <2020.3.13>
-Description:
-ref to <innerproduct.pdf>
-Todo: P8, P9, P11
+Description:ref to <innerproduct.pdf>
 '''
-
 from flask import Flask, jsonify, request
 import numpy as np
 
-#建立app
+#create app
 app = Flask(__name__)
 
+#for logging number of requests/errors
 number_of_requests = {}
 number_of_errors = {}
 
-#針對所需的route新增對應建立view function用來處理使用者的request
+
+#create view function for handling POST/GET request through /innerproduct
 '''
-POST參數(json): { "x": [1, 2, 3], "y": [4, 5, 6]}
+POST payload(json): { "x": [1, 2, 3], "y": [4, 5, 6]}
 Return(json): {"xTy": 1*4+2*5+3*6}
+How to use: 1.curl -i -X POST <your domain>/innerproduct/ -H "Content-Type: application/json; charset=utf-8" -d @<input json file path>
+            2.curl -H "Content-Type: application/json; charset=utf-8" -X POST --data '{ "x": <array>, "y": <array>}' <your domain>/innerproduct/
 '''
-@app.route('/innerproduct', methods=['POST','GET'])
+@app.route('/innerproduct/', methods=['POST','GET'])
 def innerproduct():
-    
     path = "innerproduct"
+    
     if (request.method == 'POST'):
-        #request log
+        
+        #logging number of requests
         if path not in number_of_requests:
             number_of_requests['innerproduct'] = 0
 
         number_of_requests['innerproduct'] += 1
+        
+        #do innerproduct with two input vectors
+        input_vectors = request.get_json() #dict type
+        vector_a = input_vectors['x']
+        vector_b = input_vectors['y']
 
-        some_json = request.get_json() #dict type
-        #print(f"some_json={type(some_json)}")
-
-        vector_a = some_json['x']
-        vector_b = some_json['y']
-
-        #P6 Check length of incoming array
+        #Check length of incoming array
         if (len(vector_a)  >= 1 and len(vector_a)  <= 50 ) and (len(vector_a) == len(vector_b) ):
             inner_product_result = np.dot(vector_a, vector_b)
             return jsonify({"xTy": int(inner_product_result)}), 200
         else:
-            #error log
+            #logging number of errors
             if  path not in number_of_errors:
                 number_of_errors[path] = 0
 
@@ -52,15 +53,15 @@ def innerproduct():
             return jsonify({"error": {"type": "format error"} }), 200
 
     else:
-        return jsonify({"about": 'InnerProduct API'})
+        return jsonify({"about": 'InnerProduct API', 'HowToUse', 'curl -i -X POST <your domain>/innerproduct/ -H "Content-Type: application/json; charset=utf-8" -d @<input json file path>'}), 200
 
-
+#create view function for handling GET request through /info/
+'''
+How to use: curl <your domain>/info/
+'''
 @app.route('/info/', methods=['GET'])
 def get_info():
     return jsonify({'number_of_requests': number_of_requests, 'number_of_errors': number_of_errors,})
-
-
-# curl -H "Content-Type: application/json; charset=utf-8" -X POST --data '{ "x": [1, 2, 3], "y": [4, 5, 6]}' http://127.0.0.1:5000/
 
 
 if __name__ == '__main__':
