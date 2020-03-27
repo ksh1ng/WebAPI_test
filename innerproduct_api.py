@@ -19,6 +19,7 @@ number_of_errors = {}
 #針對所需的route新增對應建立view function用來處理使用者的request
 '''
 POST參數(json): { "x": [1, 2, 3], "y": [4, 5, 6]}
+Return(json): {"xTy": 1*4+2*5+3*6}
 '''
 @app.route('/innerproduct', methods=['POST','GET'])
 def innerproduct():
@@ -58,7 +59,8 @@ def innerproduct():
 def get_info():
     return jsonify({'number_of_requests': number_of_requests, 'number_of_errors': number_of_errors,})
 
-# curl -H "Content-Type: application/json; charset=utf-8" -X POST --data '{"name":"xyz", "address":"addr xyz"}' http://127.0.0.1:5000/
+
+# curl -H "Content-Type: application/json; charset=utf-8" -X POST --data '{ "x": [1, 2, 3], "y": [4, 5, 6]}' http://127.0.0.1:5000/
 
 
 if __name__ == '__main__':
