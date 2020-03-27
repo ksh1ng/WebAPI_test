@@ -28,7 +28,15 @@ $  curl http://<your_domain>/info
 ## <font color=blue>Progress Record</font>
 
 -  3/13/2020 (2.5hr)
-      >P1~P7 and P11 
+    - P1~P7 and P11 
+    - 了解如何撰寫一個API和其GET/POST methods
+
+-  Todo: handle more requests per second
+    -  ref:API的架構問題和stateless Docs.google.com/presentation/d/1ycF5l0uKNBc7yp0klJfrbuBrQGorNGkEkT8an9mAIKE/edit
+
+-   3/25/2020 (2.5hr)
+    -    測試規格規定的效能，並設定情境驗證效能是否符合規格
+
 
 
 
@@ -43,5 +51,5 @@ https://kite.com/python/docs/flask.jsonify
 - 在flask中使用jsonify和json.dumps的区别
 https://blog.csdn.net/Duke_Huan_of_Qi/article/details/76064225
 
-
-
+- Measure Web App Performance in Requests Per Second
+https://www.youtube.com/watch?v=CXAF8uOduzk
