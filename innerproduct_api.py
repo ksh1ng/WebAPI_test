@@ -25,15 +25,15 @@ How to use: 1.curl -i -X POST <your domain>/innerproduct/ -H "Content-Type: appl
 @app.route('/innerproduct/', methods=['POST','GET'])
 def innerproduct():
     path = "innerproduct"
-    
+
     if (request.method == 'POST'):
-        
+
         #logging number of requests
         if path not in number_of_requests:
             number_of_requests['innerproduct'] = 0
 
         number_of_requests['innerproduct'] += 1
-        
+
         #do innerproduct with two input vectors
         input_vectors = request.get_json() #dict type
         vector_a = input_vectors['x']
@@ -53,7 +53,7 @@ def innerproduct():
             return jsonify({"error": {"type": "format error"} }), 200
 
     else:
-        return jsonify({"about": 'InnerProduct API', 'HowToUse', 'curl -i -X POST <your domain>/innerproduct/ -H "Content-Type: application/json; charset=utf-8" -d @<input json file path>'}), 200
+        return jsonify({"about": 'InnerProduct API', "HowToUse": "curl -i -X POST <your domain>/innerproduct/ -H 'Content-Type: application/json; charset=utf-8' -d @<input json file path>"}), 200
 
 #create view function for handling GET request through /info/
 '''
